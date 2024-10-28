@@ -38,6 +38,9 @@ Serveur web temporaire pour l'hébergement de payloads :
 - Gestion automatique des fichiers temporaires
 - Nettoyage à la fermeture
 
+### Améliorations à venir :
+- completer les ploads du module WebPload
+
 ### Modules à venir :
 
 #### BruteForce Web

@@ -1,9 +1,6 @@
-import os
-import socket
-import subprocess
-import shutil
-from colorama import Fore, Style
-
+########################################################
+###################### RESUME ##########################
+########################################################
 
 resume = "Serveur web automatisé avec répertoire temporaire de payloads prêts à l'emploi"
 description = """WebPload est un module qui automatise entièrement la création et la gestion 
@@ -48,6 +45,24 @@ pload = {
     }
 
 }
+
+########################################################
+###################### IMPORTS ########################
+########################################################    
+
+
+import os
+import socket
+import subprocess
+import shutil
+from colorama import Fore, Style
+
+
+
+########################################################
+###################### Fonctions #####################
+########################################################    
+
 
 def is_port_in_use(port):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:

@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+
+
 import os
 import sys
 import cmd
@@ -83,7 +85,8 @@ def get_random_ascii_art():
 def scanner_repertoire():
     """Scanne le répertoire courant pour trouver les fichiers Python"""
     modules_disponibles = []
-    repertoire_courant = os.path.dirname(os.path.abspath(__file__))
+    real_path = os.path.realpath(__file__)  
+    repertoire_courant = os.path.dirname(real_path)
     
     for fichier in os.listdir(repertoire_courant):
         if fichier.endswith('.py') and fichier != 'KiTools.py' and not fichier.startswith('__'):

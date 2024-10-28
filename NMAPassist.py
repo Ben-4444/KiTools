@@ -1,13 +1,6 @@
-import subprocess
-import curses
-import time
-import re
-from colorama import init, Fore, Style
-import ipaddress
-import os
-
-# Initialiser colorama
-init()
+########################################################
+###################### RESUME ##########################
+########################################################
 
 # ASCII art pour le titre
 start = """
@@ -30,6 +23,10 @@ Cet outil est particulièrement utile pour les débutants qui souhaitent utilise
 avoir à mémoriser toutes les options en ligne de commande."""
 
 
+########################################################
+###################### CONFIG ##########################
+########################################################
+
 # Configuration par défaut
 CIBLE_DEFAULT = "192.168.1.28"
 SCAN_FURTIF_DEFAULT = False
@@ -50,6 +47,28 @@ INTERFACE_RESEAU_DEFAULT = ""
 TIMING_TEMPLATE_DEFAULT = ""
 EXCLUDE_HOSTS_DEFAULT = ""
 OUTPUT_DEFAULT = ""
+
+
+########################################################
+###################### IMPORTS #########################
+########################################################
+
+
+import subprocess
+import curses
+import time
+import re
+from colorama import init, Fore, Style
+import ipaddress
+import os
+
+
+
+########################################################
+###################### Fonctions #######################
+########################################################
+
+init()
 
 def afficher_aide(id_aide):
     aides = {

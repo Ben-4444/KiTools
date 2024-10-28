@@ -8,7 +8,7 @@ cd KiTools<br>
 ./install.sh
 
 ## Usage
-┌──(root㉿kali)-[~]
+┌──(root㉿kali)-[~]<br>
 └─# KiTools
 
 ## Description

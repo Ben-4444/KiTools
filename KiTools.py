@@ -38,8 +38,9 @@ def get_start():
     """
 
 def get_random_ascii_art():
-    # Chemin vers le fichier ascii_art.txt dans le même répertoire
-    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # Obtenir le chemin absolu du script, même s'il est exécuté via un lien symbolique
+    real_path = os.path.realpath(__file__)
+    current_dir = os.path.dirname(real_path)
     ascii_file = os.path.join(current_dir, 'ascii_art.txt')
     
     try:

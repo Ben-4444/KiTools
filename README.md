@@ -5,8 +5,8 @@ by ben4444
 
 
 ## Installation 
-git clone https://github.com/Ben-4444/KiTools.git
-cd KiTools
+git clone https://github.com/Ben-4444/KiTools.git<br>
+cd KiTools<br>
 ./install.sh
 
 ## Usage

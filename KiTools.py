@@ -124,7 +124,7 @@ class KiToolsShell(cmd.Cmd):
         print(get_random_ascii_art() + "\n" + get_start())
         self.afficher_menu()
         if os.getlogin() != "root":
-            print(f"{Fore.RED}[!] Attention, vous n'êtes pas root ! Certaines options peuvent ne pas fonctionner{Style.RESET_ALL}")
+            print(f"{Fore.RED}[!] Attention, vous n'êtes pas root ! Certaines options peuvent ne pas fonctionner{Style.RESET_ALL}\n")
 
     def completenames(self, text, *ignored):
         """Autocomplétion des commandes"""
@@ -167,6 +167,7 @@ class KiToolsShell(cmd.Cmd):
             print(f"{Fore.LIGHTGREEN_EX}║{Style.RESET_ALL} • list          : Rafraîchit la liste des modules")
             print(f"{Fore.LIGHTGREEN_EX}║{Style.RESET_ALL} • clear         : Nettoie l'écran")
             print(f"{Fore.LIGHTGREEN_EX}║{Style.RESET_ALL} • exit/0        : Quitte le programme")
+            print(f"{Fore.LIGHTGREEN_EX}║{Style.RESET_ALL} • /cmd          : Execute une commande shell")
             print(f"{Fore.LIGHTGREEN_EX}╚════════════════════════════════════════════╝{Style.RESET_ALL}")
             return
 
@@ -184,7 +185,7 @@ class KiToolsShell(cmd.Cmd):
                 print(f"{Fore.RED}[!] Erreur: Numero module invalide{Style.RESET_ALL}")
         except ValueError:
             print(f"{Fore.RED}[!] Erreur: Module '{arg}' introuvable, Tapez 'list' pour lister les modules existants{Style.RESET_ALL}")
-
+            
     def do_list(self, arg):
         """Affiche la liste des modules"""
         self.afficher_menu()
@@ -198,6 +199,10 @@ class KiToolsShell(cmd.Cmd):
     def default(self, line):
         """Gère les commandes non reconnues"""
         try:
+            if line.startswith('/'):
+                os.system(line[1:])  # Exécuter la commande shell sans le '/'
+                return
+
             if line == "0" or line.lower() == "exit":
                 return self.do_exit("")
                 

@@ -52,9 +52,3 @@ Serveur web temporaire pour l'hébergement de payloads :
 - Configuration guidée des exploits
 - Gestion des payloads
 - Automatisation des tâches courantes
-
-#### Shell intégré
-- Shell interactif avec prefix "/"
-- Historique des commandes
-- Auto-complétion
-- Alias personnalisables

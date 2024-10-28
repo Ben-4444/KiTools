@@ -6,20 +6,20 @@
 resume = "Serveur web automatisé avec répertoire temporaire de payloads prêts à l'emploi"
 description = """WebPload est un module qui automatise entièrement la création et la gestion 
 d'un serveur web Python temporaire pour héberger des payloads.
-
+ 
 Fonctionnalités automatisées :
 - Création et suppression automatique d'un serveur web Python sur le port 80
 - Génération automatique d'un répertoire temporaire 'ploads' contenant les payloads
 - Création automatique des fichiers de payloads prêts à l'emploi
 - Nettoyage automatique du répertoire temporaire à la fermeture
-
+ 
 Les payloads générés automatiquement incluent :
 - Webshells PHP
 - Reverse shells (PHP, Bash)
 - Scripts XSS (JavaScript) 
 - Pages HTML basiques
 - Et plus encore...
-
+ 
 Le serveur et les fichiers sont temporaires et sont automatiquement supprimés à la fermeture du module."""
 
 pload = {

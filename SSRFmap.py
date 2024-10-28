@@ -15,12 +15,12 @@ bruteforce port open       par ben4444
 resume = "Outil de bruteforce de ports ouverts via une vulnérabilité SSRF"
 description = """Cet outil permet d'exploiter une vulnérabilité SSRF (Server-Side Request Forgery) 
 pour détecter les ports ouverts sur un serveur cible.
-
+ 
 Il fonctionne en envoyant des requêtes HTTP (GET ou POST) vers une 
 URL vulnérable en faisant varier le numéro de port. 
 L'outil analyse ensuite les réponses du serveur pour détecter les 
 ports ouverts en se basant sur les messages d'erreur retournés.
-
+ 
 Fonctionnalités principales :
 - Support des méthodes GET et POST
 - Gestion des cookies de session

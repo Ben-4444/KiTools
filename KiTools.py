@@ -174,19 +174,35 @@ class KiToolsShell(cmd.Cmd):
             return
 
         try:
-            module_num = int(arg)
-            if 1 <= module_num <= len(self.modules):
-                nom_fichier, _, _, description = self.modules[module_num-1]
-                if description:
-                    print(f"{Fore.MAGENTA}╔═══ Description Module : {nom_fichier[:-3]} ═══╗{Style.RESET_ALL}")
-                    print(f"{Fore.MAGENTA}║{Style.RESET_ALL} {description.replace(chr(10), chr(10)+Fore.MAGENTA+'║ '+Style.RESET_ALL)}")
-                    print(f"{Fore.MAGENTA}╚{'═' * (len(nom_fichier[:-3]) + 25)}╝{Style.RESET_ALL}")
+            # Essayer d'abord comme numéro de module
+            try:
+                module_num = int(arg)
+                if 1 <= module_num <= len(self.modules):
+                    nom_fichier, _, _, description = self.modules[module_num-1]
                 else:
-                    print(f"{Fore.RED}[!] Pas de description disponible pour {Fore.YELLOW}{nom_fichier[:-3]}{Style.RESET_ALL}")
+                    print(f"{Fore.RED}[!] Erreur: Numero module invalide{Style.RESET_ALL}")
+                    return
+            # Sinon chercher par nom de module
+            except ValueError:
+                module_trouve = False
+                for nom_fichier, _, _, description in self.modules:
+                    if nom_fichier[:-3].lower() == arg.lower():
+                        module_trouve = True
+                        break
+                if not module_trouve:
+                    print(f"{Fore.RED}[!] Erreur: Module '{arg}' introuvable, Tapez 'list' pour lister les modules existants{Style.RESET_ALL}")
+                    return
+
+            # Afficher la description
+            if description:
+                print(f"{Fore.MAGENTA}╔═══ Description Module : {nom_fichier[:-3]} ═══╗{Style.RESET_ALL}")
+                print(f"{Fore.MAGENTA}║{Style.RESET_ALL} {description.replace(chr(10), chr(10)+Fore.MAGENTA+'║ '+Style.RESET_ALL)}")
+                print(f"{Fore.MAGENTA}╚{'═' * (len(nom_fichier[:-3]) + 25)}╝{Style.RESET_ALL}")
             else:
-                print(f"{Fore.RED}[!] Erreur: Numero module invalide{Style.RESET_ALL}")
-        except ValueError:
-            print(f"{Fore.RED}[!] Erreur: Module '{arg}' introuvable, Tapez 'list' pour lister les modules existants{Style.RESET_ALL}")
+                print(f"{Fore.RED}[!] Pas de description disponible pour {Fore.YELLOW}{nom_fichier[:-3]}{Style.RESET_ALL}")
+
+        except Exception as e:
+            print(f"{Fore.RED}[!] Erreur inattendue: {str(e)}{Style.RESET_ALL}")
             
     def do_list(self, arg):
         """Affiche la liste des modules"""

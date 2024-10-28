@@ -7,3 +7,4 @@ idées modules :
 - bf web
 - msfassist
 - ajouter shell cmd avec prefix /
+- add

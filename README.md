@@ -8,7 +8,8 @@ cd KiTools<br>
 ./install.sh
 
 ## Usage
-KiTools
+┌──(root㉿kali)-[~]
+└─# KiTools
 
 ## Description
 KiTools est un outil en ligne de commande qui regroupe plusieurs modules pour automatiser des tâches courantes dans le domaine de la sécurité informatique et du développement.

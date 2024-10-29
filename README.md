@@ -44,7 +44,7 @@ Serveur web temporaire pour l'hébergement de payloads :
 ### Améliorations à venir :
 #### WebPload
 - pload msfvenom with option
-- create folder reverse shell / webshell / injection / etc...
+- option ajouter un pload temporaire manuelement 
 
 
 ### Modules à venir :

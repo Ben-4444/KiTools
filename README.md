@@ -1,6 +1,6 @@
 # KiTools
 
-![alt text](https://github.com/Ben-4444/KiTools/blob/main/modules/galerie/img.png)
+![alt text](https://github.com/Ben-4444/KiTools/blob/main/modules/galerie/KiTools.png)
 
 ## Installation 
 git clone https://github.com/Ben-4444/KiTools.git<br>
@@ -45,15 +45,33 @@ Serveur web temporaire pour l'hébergement de payloads :
 
 <table>
   <tr>
-    <td> <img src="modules/galerie/img.png"  alt="1" width = 360px height = 640px ></td>
-
-    <td><img src="img2.png" alt="2" width = 360px height = 640px></td>
-   </tr> 
-   <tr>
-      <td><img src="modules/galerie/img.png" alt="3" width = 360px height = 640px></td>
-
-      <td><img src="./Scshot/trip_end.png" align="right" alt="4" width = 360px height = 640px>
-  </td>
+    <th colspan="2">NMAPassist</th>
+  </tr>
+  <tr>
+    <td><img src="modules/galerie/nmapassis_01.png" alt="NMAPassist menu" width="400"></td>
+    <td><img src="modules/galerie/nmapassis_02.png" alt="NMAPassist scan" width="400"></td>
+  </tr>
+  <tr>
+    <td><img src="modules/galerie/nmapassist_03.png" alt="NMAPassist menu" width="400"></td>
+    <td><img src="modules/galerie/nmapassis_04.png" alt="NMAPassist scan" width="400"></td>
+  </tr>
+  <tr>
+    <th colspan="2">WebPload</th>
+  </tr>
+  <tr>
+    <td><img src="modules/galerie/webpload_01.png" alt="WebPload interface" width="400"></td>
+    <td><img src="modules/galerie/webpload_02.png" alt="WebPload files" width="400"></td>
+  </tr>
+  <tr>
+    <td><img src="modules/galerie/webpload_03.png" alt="WebPload interface" width="400"></td>
+    <td><img src="modules/galerie/webpload_04.png" alt="WebPload files" width="400"></td>
+  </tr>
+    <tr>
+    <th colspan="2">SSRFmap</th>
+  </tr>
+  <tr>
+    <td><img src="modules/galerie/ssrfmap_01.png" alt="SSRFmap interface" width="400"></td>
+    <td><img src="modules/galerie/ssrfmap_02.png" alt="SSRFmap scan" width="400"></td>
   </tr>
 </table>
 

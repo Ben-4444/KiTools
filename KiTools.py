@@ -16,7 +16,10 @@ init()
 
 # Ajouter le parsing des arguments
 parser = argparse.ArgumentParser()
-parser.add_argument('--b' + 'o'*2 + 'bs', action='store_true')
+parser.add_argument('-b', action='store_true')
+parser.add_argument('--games', action='store_true', help='Afficher les modules de jeux')
+parser.add_argument('--start', type=str, help='Lance directement le module spécifié')
+parser.add_argument('--list', action='store_true', help='Liste les modules disponibles')
 args = parser.parse_args()
 
 def get_random_color():
@@ -58,7 +61,7 @@ def get_random_ascii_art():
             ascii_arts = ['\n'.join(line.rstrip() for line in art.split('\n')) 
                          for art in ascii_arts if art.strip()]
             
-            if getattr(args, 'b' + 'o'*2 + 'bs'):
+            if getattr(args, 'b'):
                 for art in ascii_arts:
                     if "⢠⣿⠇⠄⣷⡑⢶⣶⢿⣿⣿⣿⣽⣿⣿⣿⣶⣶⡐⣶⣿⠿⠛⣩" in art:
                         max_width = max(len(line) for line in art.split('\n'))
@@ -86,6 +89,7 @@ def get_random_ascii_art():
 def scanner_repertoire():
     """Scanne le répertoire courant pour trouver les fichiers Python"""
     modules_disponibles = []
+    modules_jeux = []
     real_path = os.path.realpath(__file__)  
     repertoire_courant = os.path.dirname(real_path)
     
@@ -105,11 +109,17 @@ def scanner_repertoire():
                     if "description = " in contenu:
                         description = contenu.split("description = ")[1].split("\n\n")[0].strip('"\' ')
                         
-                modules_disponibles.append((fichier, chemin_complet, resume, description))
+                if fichier.startswith('game'):
+                    if args.games:
+                        modules_jeux.append((fichier, chemin_complet, resume, description))
+                else:
+                    modules_disponibles.append((fichier, chemin_complet, resume, description))
             except Exception as e:
                 print(f"{Fore.RED}[!] Erreur lors de la lecture du fichier {fichier}: {e}{Style.RESET_ALL}")
                 continue
     
+    if args.games:
+        modules_disponibles.extend(modules_jeux)
     return modules_disponibles
 
 class KiToolsShell(cmd.Cmd):
@@ -119,11 +129,31 @@ class KiToolsShell(cmd.Cmd):
     kitools_color = Fore.LIGHTRED_EX 
     trait_color = Fore.LIGHTYELLOW_EX
     fleche_color = Fore.GREEN
-    prompt = f"{trait_color}╭──({user_color}{os.getlogin()}{kitools_color} 💀 KiTools{trait_color})\n╰─{fleche_color}➤{Style.RESET_ALL} "
+    prompt = f"{trait_color}╭──({user_color}{os.getlogin()}{kitools_color} 👽 KiTools{trait_color})\n╰─{fleche_color}➤{Style.RESET_ALL} "
     
     def __init__(self):
         super().__init__()
         self.modules = scanner_repertoire()
+        
+        # Vérifier si l'argument --list est présent
+        if args.list:
+            self.afficher_menu()
+            sys.exit(0)
+            
+        # Vérifier si un module est spécifié en argument
+        if args.start:
+            module_trouve = False
+            for index, (nom_fichier, chemin_complet, _, _) in enumerate(self.modules):
+                nom_module = nom_fichier[5:-3] if nom_fichier.startswith('game') else nom_fichier[:-3]
+                if nom_module.lower() == args.start.lower():
+                    print(f"{Fore.GREEN}[+] Lancement direct du module {Fore.YELLOW}{nom_module}{Fore.GREEN}...{Style.RESET_ALL}")
+                    self.lancer_module(index)
+                    module_trouve = True
+                    sys.exit(0)
+            if not module_trouve:
+                print(f"{Fore.RED}[!] Erreur: Module '{args.start}' introuvable{Style.RESET_ALL}")
+                sys.exit(1)
+                
         os.system('clear' if os.name == 'posix' else 'cls')
         print(get_random_ascii_art() + "\n" + get_start())
         self.afficher_menu()
@@ -136,8 +166,11 @@ class KiToolsShell(cmd.Cmd):
         # Ajouter les noms des modules
         modules_noms = {}
         for nom_fichier, _, _, _ in self.modules:
-            nom_lower = nom_fichier[:-3].lower()
-            modules_noms[nom_lower] = nom_fichier[:-3]
+            if nom_fichier.startswith('game'):
+                nom_lower = nom_fichier[5:-3].lower()
+            else:
+                nom_lower = nom_fichier[:-3].lower()
+            modules_noms[nom_lower] = nom_fichier[5:-3] if nom_fichier.startswith('game') else nom_fichier[:-3]
             commandes.append(nom_lower)
             
         matches = [cmd for cmd in commandes if cmd.startswith(text.lower())]
@@ -152,9 +185,27 @@ class KiToolsShell(cmd.Cmd):
     def afficher_menu(self):
         """Affiche le menu des modules disponibles"""
         print(f"{Fore.CYAN}╔═══════════════════ Liste Modules ═══════════════════╗{Style.RESET_ALL}")
-        for i, (nom_fichier, _, resume, _) in enumerate(self.modules, 1):
-            nom = nom_fichier[:-3].ljust(20)
-            print(f"{Fore.CYAN}║ {Style.RESET_ALL}[{Fore.LIGHTGREEN_EX}{str(i)}{Style.RESET_ALL}] {Fore.YELLOW}{nom}{Style.RESET_ALL} {resume if resume else ''}")
+        i = 1
+        
+        # Afficher d'abord les modules standards
+        for nom_fichier, _, resume, _ in self.modules:
+            if not nom_fichier.startswith('game'):
+                nom = nom_fichier[:-3].ljust(20)
+                print(f"{Fore.CYAN}║ {Style.RESET_ALL}[{Fore.LIGHTGREEN_EX}{str(i)}{Style.RESET_ALL}] {Fore.YELLOW}{nom}{Style.RESET_ALL} {resume if resume else ''}")
+                i += 1
+                
+        # Si --games est activé, afficher les jeux dans une section séparée
+        if args.games:
+            print(f"{Fore.CYAN}║{Style.RESET_ALL}")
+            print(f"{Fore.CYAN}║ {Fore.MAGENTA}    ═══════════════════ Jeux ═══════════════════{Style.RESET_ALL}")
+            print(f"{Fore.CYAN}║{Style.RESET_ALL}")
+            for nom_fichier, _, resume, _ in self.modules:
+                if nom_fichier.startswith('game'):
+                    nom = nom_fichier[5:-3].ljust(20)
+                    print(f"{Fore.CYAN}║ {Style.RESET_ALL}[{Fore.LIGHTGREEN_EX}{str(i)}{Style.RESET_ALL}] {Fore.YELLOW}{nom}{Style.RESET_ALL} {resume if resume else ''}")
+                    i += 1
+                    
+        print(f"{Fore.CYAN}║{Style.RESET_ALL}")
         print(f"{Fore.CYAN}║ {Style.RESET_ALL}[{Fore.RED}0/exit{Style.RESET_ALL}] Quitter")
         print(f"{Fore.CYAN}╚════════════════════════════════════════════════════════╝{Style.RESET_ALL}")
         print(f"{Back.LIGHTBLACK_EX}{Fore.WHITE} INFO {Style.RESET_ALL} Tapez {Fore.GREEN}'help'{Style.RESET_ALL} pour plus d'informations\n")
@@ -188,7 +239,8 @@ class KiToolsShell(cmd.Cmd):
             except ValueError:
                 module_trouve = False
                 for nom_fichier, _, _, description in self.modules:
-                    if nom_fichier[:-3].lower() == arg.lower():
+                    nom_module = nom_fichier[5:-3] if nom_fichier.startswith('game') else nom_fichier[:-3]
+                    if nom_module.lower() == arg.lower():
                         module_trouve = True
                         break
                 if not module_trouve:
@@ -196,12 +248,13 @@ class KiToolsShell(cmd.Cmd):
                     return
 
             # Afficher la description
+            nom_affiche = nom_fichier[5:-3] if nom_fichier.startswith('game') else nom_fichier[:-3]
             if description:
-                print(f"{Fore.MAGENTA}╔═══ Description Module : {nom_fichier[:-3]} ═══╗{Style.RESET_ALL}")
+                print(f"{Fore.MAGENTA}╔═══ Description Module : {nom_affiche} ═══╗{Style.RESET_ALL}")
                 print(f"{Fore.MAGENTA}║{Style.RESET_ALL} {description.replace(chr(10), chr(10)+Fore.MAGENTA+'║ '+Style.RESET_ALL)}")
-                print(f"{Fore.MAGENTA}╚{'═' * (len(nom_fichier[:-3]) + 25)}╝{Style.RESET_ALL}")
+                print(f"{Fore.MAGENTA}╚{'═' * (len(nom_affiche) + 25)}╝{Style.RESET_ALL}")
             else:
-                print(f"{Fore.RED}[!] Pas de description disponible pour {Fore.YELLOW}{nom_fichier[:-3]}{Style.RESET_ALL}")
+                print(f"{Fore.RED}[!] Pas de description disponible pour {Fore.YELLOW}{nom_affiche}{Style.RESET_ALL}")
 
         except Exception as e:
             print(f"{Fore.RED}[!] Erreur inattendue: {str(e)}{Style.RESET_ALL}")
@@ -238,7 +291,8 @@ class KiToolsShell(cmd.Cmd):
                 nom_module = line.lower()
                 module_trouve = False
                 for index, (nom_fichier, _, _, _) in enumerate(self.modules):
-                    if nom_fichier[:-3].lower() == nom_module:
+                    nom_compare = nom_fichier[5:-3].lower() if nom_fichier.startswith('game') else nom_fichier[:-3].lower()
+                    if nom_compare == nom_module:
                         self.lancer_module(index)
                         module_trouve = True
                         break
@@ -250,7 +304,8 @@ class KiToolsShell(cmd.Cmd):
     def lancer_module(self, index):
         """Lance un module spécifique"""
         nom_fichier, chemin_complet, _, _ = self.modules[index]
-        print(f"{Fore.GREEN}[+] Lancement de {Fore.YELLOW}{nom_fichier}{Fore.GREEN}...{Style.RESET_ALL}")
+        nom_affiche = nom_fichier[5:-3] if nom_fichier.startswith('game') else nom_fichier[:-3]
+        print(f"{Fore.GREEN}[+] Lancement de {Fore.YELLOW}{nom_affiche}{Fore.GREEN}...{Style.RESET_ALL}")
         print(f"{'─' * 50}\n")
         try:
             # Créer un nouveau groupe de processus

@@ -43,9 +43,19 @@ Serveur web temporaire pour l'hébergement de payloads :
 
 ##Galerie :
 
-| ![alt text](https://github.com/Ben-4444/KiTools/blob/main/modules/galerie/img.png)  | ![alt text](https://github.com/Ben-4444/KiTools/blob/main/modules/galerie/img.png)  |
-| ![alt text](https://github.com/Ben-4444/KiTools/blob/main/modules/galerie/img.png)  | ![alt text](https://github.com/Ben-4444/KiTools/blob/main/modules/galerie/img.png)  |
+<table>
+  <tr>
+    <td> <img src="modules/galerie/img.png"  alt="1" width = 360px height = 640px ></td>
 
+    <td><img src="img2.png" alt="2" width = 360px height = 640px></td>
+   </tr> 
+   <tr>
+      <td><img src="modules/galerie/img.png" alt="3" width = 360px height = 640px></td>
+
+      <td><img src="./Scshot/trip_end.png" align="right" alt="4" width = 360px height = 640px>
+  </td>
+  </tr>
+</table>
 
 ### Améliorations à venir :
 #### WebPload

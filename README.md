@@ -77,9 +77,9 @@ Serveur web temporaire pour l'hébergement de payloads :
 </table>
 
 ### Améliorations à venir :
+
 #### WebPload
 - pload msfvenom with option
-- option ajouter un pload temporaire manuelement 
 
 
 ### Modules à venir :

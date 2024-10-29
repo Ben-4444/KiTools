@@ -28,8 +28,8 @@ Module d'exploitation de vulnérabilité SSRF (Server-Side Request Forgery) perm
 #### NMAPassist 
 Assistant pour Nmap offrant :
 - Interface interactive pour configurer les scans
-- Support des principaux types de scan (TCP SYN/Connect, UDP, OS, services...)
-- Gestion des scripts NSE
+- Propose les principaux types de scan avec description de chaque option
+- Gestion et description des scripts NSE
 - Sauvegarde des configurations
 - Affichage coloré des résultats
 
@@ -37,6 +37,7 @@ Assistant pour Nmap offrant :
 Serveur web temporaire pour l'hébergement de payloads :
 - Création automatique d'un serveur Python sur le port 80
 - Génération de payloads prêts à l'emploi (webshells, reverse shells, XSS...)
+- Enregistrement de payloads personnalisés
 - Gestion automatique des fichiers temporaires
 - Nettoyage à la fermeture
 

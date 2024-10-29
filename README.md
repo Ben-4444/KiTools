@@ -13,7 +13,10 @@ cd KiTools<br>
 
 
 ## Description
-KiTools est un outil en ligne de commande qui regroupe plusieurs modules pour automatiser des tâches courantes dans le domaine de la sécurité informatique et du développement.
+KiTools est un outil en ligne de commande qui regroupe plusieurs modules de pentest.
+Il fait office de cheat sheet interactive pour certaintes applications comme nmap.
+Ou permet l'automatisation de taches, comme l'ouverture d'un serveur web temporaire avec hébergement de payloads.
+Et plus encore.
 
 
 ### Modules existants :

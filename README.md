@@ -63,7 +63,7 @@ Serveur web temporaire pour l'hébergement de payloads :
     <td><img src="modules/galerie/webpload_02.png" alt="WebPload files" width="400"></td>
   </tr>
   <tr>
-    <td><img src="modules/galerie/webpload_04.png" alt="WebPload interface" width="400"></td>
+    <td><img src="modules/galerie/webpload_05.png" alt="WebPload interface" width="400"></td>
     <td><img src="modules/galerie/webpload_03.png" alt="WebPload files" width="400"></td>
   </tr>
     <tr>

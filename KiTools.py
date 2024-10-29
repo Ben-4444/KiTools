@@ -366,5 +366,6 @@ def main():
     except Exception as e:
         print(f"\n{Fore.RED}[!] Erreur fatale: {e}{Style.RESET_ALL}")
 
+
 if __name__ == "__main__":
     main()

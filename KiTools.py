@@ -47,7 +47,7 @@ def get_random_ascii_art():
     # Obtenir le chemin absolu du script, même s'il est exécuté via un lien symbolique
     real_path = os.path.realpath(__file__)
     current_dir = os.path.dirname(real_path)
-    ascii_file = os.path.join(current_dir+'/modules/', 'ascii_art.txt')
+    ascii_file = os.path.join(current_dir+'/modules/galerie/', 'ascii_art.txt')
     
     try:
         with open(ascii_file, 'r') as f:

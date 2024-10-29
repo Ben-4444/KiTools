@@ -21,12 +21,13 @@ Et plus encore.
 
 ### Modules existants :
 
-#### SSRFmap
-Module d'exploitation de vulnérabilité SSRF (Server-Side Request Forgery) permettant de :
-- Détecter les ports ouverts sur un serveur cible via des requêtes HTTP
-- Supporter les méthodes GET et POST avec gestion des cookies
-- Effectuer des scans multi-thread avec barre de progression
-- Sauvegarder la configuration
+#### WebPload
+Serveur web temporaire pour l'hébergement de payloads prêts à l'emploi :
+- Création automatique d'un serveur PHP ou Python sur le port 80 (adaptable si 80 déjà utilisé)
+- Génération de payloads prêts à l'emploi (webshells, reverse shells, XSS...)
+- Enregistrement de payloads personnalisés (persistant dans KiTools ou en cache)
+- Gestion automatique des fichiers temporaires
+- Nettoyage à la fermeture
 
 #### NMAPassist 
 Assistant pour Nmap offrant :
@@ -34,15 +35,14 @@ Assistant pour Nmap offrant :
 - Propose les principaux types de scan avec description de chaque option
 - Gestion et description des scripts NSE
 - Sauvegarde des configurations
-- Affichage coloré des résultats
 
-#### WebPload
-Serveur web temporaire pour l'hébergement de payloads :
-- Création automatique d'un serveur Python sur le port 80
-- Génération de payloads prêts à l'emploi (webshells, reverse shells, XSS...)
-- Enregistrement de payloads personnalisés
-- Gestion automatique des fichiers temporaires
-- Nettoyage à la fermeture
+#### SSRFmap
+Module d'exploitation de vulnérabilité SSRF (Server-Side Request Forgery) permettant de :
+- Détecter les ports ouverts sur un serveur cible via des requêtes HTTP
+- Supporter les méthodes GET et POST avec gestion des cookies
+- Effectuer des scans multi-thread avec barre de progression
+- Sauvegarder la configuration
+- gestion des erreurs (cookie/domain/redirect/etc...)
 
 
 ##Galerie :

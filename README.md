@@ -96,7 +96,7 @@ Module d'exploitation de vulnérabilité SSRF (Server-Side Request Forgery) perm
 #### Auto Handler
 - Auto Handler msf with option + pload msf in WebPload
 - Auto Handler classique
-
+- Handler Auto Push Script + Execute
 
 #### Wifite
 - lunch wifite with option

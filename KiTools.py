@@ -129,7 +129,7 @@ class KiToolsShell(cmd.Cmd):
     kitools_color = Fore.LIGHTRED_EX 
     trait_color = Fore.LIGHTYELLOW_EX
     fleche_color = Fore.GREEN
-    prompt = f"{trait_color}╭──({user_color}{os.getlogin()}{kitools_color} 👽 KiTools{trait_color})\n╰─{fleche_color}➤{Style.RESET_ALL} "
+    prompt = f"{trait_color}╭──({user_color}{os.getlogin()}{kitools_color}👽KiTools{trait_color})\n╰─{fleche_color}➤{Style.RESET_ALL} "
     
     def __init__(self):
         super().__init__()

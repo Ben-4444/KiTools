@@ -167,5 +167,6 @@ def main():
     except KeyboardInterrupt:
         print("Ouais va, on s'arrete là !")
 
+
 if __name__ == "__main__":
     main()

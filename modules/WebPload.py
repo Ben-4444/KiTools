@@ -2,7 +2,7 @@
 ###################### RESUME ##########################
 ########################################################
 
-resume = "Serveur web temporaire pour le partage rapide de fichiers"
+resume = "Serveur web avec répertoire temporaire de ploads prêt à l'emploi"
 description = """WebPload est un outil de partage de fichiers qui permet de déployer rapidement un serveur web temporaire 
 avec une interface graphique moderne et intuitive.
  

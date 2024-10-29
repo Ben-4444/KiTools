@@ -39,8 +39,8 @@ URL_DEFAULT = "http://tp8.esdown.local/external.php?procedure_url=http://localho
 DATA_HTTP_DEFAULT = ""
 ERREUR_DEFAULT = "Failed to open stream: Connection refused"
 COOKIE_PHPSESSID_DEFAULT = "5b7fddd0fca63a3e7856855502028a24"
-PORT_START_DEFAULT = 1
-PORT_STOP_DEFAULT = 10000
+PORT_START_DEFAULT = 50
+PORT_STOP_DEFAULT = 80
 THREADS_DEFAULT = 20
 
 

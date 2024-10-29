@@ -1,6 +1,6 @@
 # KiTools
 
-![alt text](https://github.com/Ben-4444/KiTools/blob/main/img.png)
+![alt text](https://github.com/Ben-4444/KiTools/blob/main/modules/img.png)
 
 ## Installation 
 git clone https://github.com/Ben-4444/KiTools.git<br>

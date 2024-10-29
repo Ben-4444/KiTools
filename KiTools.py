@@ -42,7 +42,7 @@ def get_random_ascii_art():
     # Obtenir le chemin absolu du script, même s'il est exécuté via un lien symbolique
     real_path = os.path.realpath(__file__)
     current_dir = os.path.dirname(real_path)
-    ascii_file = os.path.join(current_dir, 'ascii_art.txt')
+    ascii_file = os.path.join(current_dir+'/modules/', 'ascii_art.txt')
     
     try:
         with open(ascii_file, 'r') as f:
@@ -87,9 +87,9 @@ def scanner_repertoire():
     real_path = os.path.realpath(__file__)  
     repertoire_courant = os.path.dirname(real_path)
     
-    for fichier in os.listdir(repertoire_courant):
+    for fichier in os.listdir(repertoire_courant+'/modules/'):
         if fichier.endswith('.py') and fichier != 'KiTools.py' and not fichier.startswith('__'):
-            chemin_complet = os.path.join(repertoire_courant, fichier)
+            chemin_complet = os.path.join(repertoire_courant+'/modules/', fichier)
             try:
                 # Lire le fichier pour extraire resume et description
                 with open(chemin_complet, 'r') as f:

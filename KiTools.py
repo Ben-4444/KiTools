@@ -8,6 +8,8 @@ import argparse
 from colorama import init, Fore, Style, Back
 import random
 import subprocess
+import signal
+import time
 
 # Initialiser colorama
 init()
@@ -251,9 +253,27 @@ class KiToolsShell(cmd.Cmd):
         print(f"{Fore.GREEN}[+] Lancement de {Fore.YELLOW}{nom_fichier}{Fore.GREEN}...{Style.RESET_ALL}")
         print(f"{'─' * 50}\n")
         try:
-            subprocess.run([sys.executable, chemin_complet])
+            # Créer un nouveau groupe de processus
+            process = subprocess.Popen([sys.executable, chemin_complet], 
+                                     preexec_fn=os.setsid if os.name != 'nt' else None)
+            process.wait()
         except KeyboardInterrupt:
-            print(f"{Fore.YELLOW}[*] Module interrompu par l'utilisateur{Style.RESET_ALL}")
+            # Tuer proprement tout le groupe de processus
+            if os.name != 'nt':
+                os.killpg(os.getpgid(process.pid), signal.SIGINT)
+            else:
+                process.send_signal(signal.SIGINT)
+            # Attendre que le processus se termine
+            process.wait()
+            # Petit délai pour laisser le temps à la console de se nettoyer
+            time.sleep(0.5)
+            print(f"\n{Fore.YELLOW}[*] Module interrompu par l'utilisateur{Style.RESET_ALL}")
+        finally:
+            # S'assurer que le processus est bien terminé
+            if process.poll() is None:
+                process.terminate()
+                process.wait()
+            
         print(f"\n{'─' * 25} Retour KiTools {'─' * 25}")
 
     def do_exit(self, arg):

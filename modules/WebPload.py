@@ -157,38 +157,44 @@ def add_pload(stdscr, server_active):
     stdscr.clear()
     curses.echo()
     
+    # Afficher le titre centré
+    title = "Ajouter un Payload"
+    screen_width = 80  # Largeur standard du terminal
+    title_x = (screen_width - len(title)) // 2
+    stdscr.addstr(2, title_x, title, curses.color_pair(1) | curses.A_BOLD)
+    
     # Demander le type de pload
     while True:
-        stdscr.addstr(2, 2, "Extention du pload: ")
+        stdscr.addstr(4, 2, "Extention du pload: ")
         pload_type = stdscr.getstr().decode('utf-8').lower()
         if pload_type.strip():
             break
-        stdscr.addstr(3, 2, "L'extention ne peut pas être vide!", curses.color_pair(2))
-        stdscr.addstr(4, 2, "Reessayez dans 1 secondes", curses.color_pair(2))
-        stdscr.refresh()
-        curses.napms(1500)  # Pause de 1.5s
-        stdscr.addstr(3, 2, " " * 50)  # Efface le message d'erreur
-        stdscr.addstr(4, 2, " " * 50)  # Efface le message de réessai
-    
-    # Demander le nom du pload
-    while True:
-        stdscr.addstr(4, 2, "Nom du pload: ")
-        pload_name = stdscr.getstr().decode('utf-8')
-        if pload_name.strip():
-            break
-        stdscr.addstr(5, 2, "Le nom ne peut pas être vide!", curses.color_pair(2))
+        stdscr.addstr(5, 2, "L'extention ne peut pas être vide!", curses.color_pair(2))
         stdscr.addstr(6, 2, "Reessayez dans 1 secondes", curses.color_pair(2))
         stdscr.refresh()
         curses.napms(1500)  # Pause de 1.5s
         stdscr.addstr(5, 2, " " * 50)  # Efface le message d'erreur
         stdscr.addstr(6, 2, " " * 50)  # Efface le message de réessai
     
+    # Demander le nom du pload
+    while True:
+        stdscr.addstr(6, 2, "Nom du pload: ")
+        pload_name = stdscr.getstr().decode('utf-8')
+        if pload_name.strip():
+            break
+        stdscr.addstr(7, 2, "Le nom ne peut pas être vide!", curses.color_pair(2))
+        stdscr.addstr(8, 2, "Reessayez dans 1 secondes", curses.color_pair(2))
+        stdscr.refresh()
+        curses.napms(1500)  # Pause de 1.5s
+        stdscr.addstr(7, 2, " " * 50)  # Efface le message d'erreur
+        stdscr.addstr(8, 2, " " * 50)  # Efface le message de réessai
+    
     # Demander si le pload doit être permanent
-    stdscr.addstr(6, 2, "Pload permanent ou temporaire pour la session ? (O/n): ")
+    stdscr.addstr(8, 2, "Enregistrer le pload ? (si 'Non' pload en cache) (O/n): ")
     is_permanent = stdscr.getstr().decode('utf-8').lower() not in ['n', 'non', 'no']
     
     # Demander le chemin du fichier source
-    stdscr.addstr(8, 2, "Chemin du fichier source: ")
+    stdscr.addstr(10, 2, "Chemin du fichier source: ")
     file_path = stdscr.getstr().decode('utf-8')
     
     try:
@@ -243,11 +249,11 @@ def add_pload(stdscr, server_active):
             shutil.copy2(file_path, dest_path)
             os.chmod(dest_path, 0o777)
             
-        stdscr.addstr(10, 2, "Pload ajouté avec succès!", curses.color_pair(1))
+        stdscr.addstr(12, 2, "Pload ajouté avec succès!", curses.color_pair(1))
     except Exception as e:
-        stdscr.addstr(10, 2, f"Erreur: {str(e)}", curses.color_pair(2))
+        stdscr.addstr(12, 2, f"Erreur: {str(e)}", curses.color_pair(2))
     
-    stdscr.addstr(12, 2, "Appuyez sur une touche pour continuer...")
+    stdscr.addstr(14, 2, "Appuyez sur une touche pour continuer...")
     stdscr.refresh()
     stdscr.getch()
     curses.noecho()

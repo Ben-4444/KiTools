@@ -52,7 +52,7 @@ Serveur web temporaire pour l'hébergement de payloads :
     <td><img src="modules/galerie/nmapassis_02.png" alt="NMAPassist scan" width="400"></td>
   </tr>
   <tr>
-    <td><img src="modules/galerie/nmapassist_03.png" alt="NMAPassist menu" width="400"></td>
+    <td><img src="modules/galerie/nmapassis_03.png" alt="NMAPassist menu" width="400"></td>
     <td><img src="modules/galerie/nmapassis_04.png" alt="NMAPassist scan" width="400"></td>
   </tr>
   <tr>

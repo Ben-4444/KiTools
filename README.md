@@ -11,8 +11,10 @@ cd KiTools<br>
 ┌──(root㉿kali)-[~]<br>
 └─# KiTools
 
+
 ## Description
 KiTools est un outil en ligne de commande qui regroupe plusieurs modules pour automatiser des tâches courantes dans le domaine de la sécurité informatique et du développement.
+
 
 ### Modules existants :
 
@@ -38,8 +40,12 @@ Serveur web temporaire pour l'hébergement de payloads :
 - Gestion automatique des fichiers temporaires
 - Nettoyage à la fermeture
 
+
 ### Améliorations à venir :
-- completer les ploads du module WebPload
+#### WebPload
+- pload msfvenom with option
+- create folder reverse shell / webshell / injection / etc...
+
 
 ### Modules à venir :
 
@@ -49,8 +55,18 @@ Serveur web temporaire pour l'hébergement de payloads :
 - Gestion des sessions et cookies
 - Détection automatique des champs
 
-#### MSFassist
-- Assistant pour Metasploit Framework
-- Configuration guidée des exploits
-- Gestion des payloads
-- Automatisation des tâches courantes
+#### Auto Handler
+- Auto Handler msf with option + pload msf in WebPload
+- Auto Handler classique
+
+
+#### Wifite
+- lunch wifite with option
+
+#### DDOS
+- Scan port/services and select best target
+- DDOS attack web
+- DDOS attack ip/port
+
+#### HYDRAssist
+- like nmapassist but with hydra

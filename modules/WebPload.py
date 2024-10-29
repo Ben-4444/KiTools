@@ -1,3 +1,29 @@
+######################################################  ##
+###################### RESUME ##########################
+########################################################
+
+resume = "Serveur web temporaire pour le partage rapide de fichiers"
+description = """WebPload est un outil de partage de fichiers qui permet de déployer rapidement un serveur web temporaire 
+avec une interface graphique moderne et intuitive.
+ 
+Il offre deux modes de serveur (PHP ou Python) et permet de partager des fichiers de manière organisée 
+avec une arborescence claire et une fonction de recherche intégrée. Les fichiers peuvent être ajoutés 
+de manière permanente ou temporaire pour la durée de la session.
+ 
+Fonctionnalités principales :
+- Interface web responsive avec thème sombre
+- Support des serveurs PHP et Python
+- Organisation automatique des fichiers par type
+- Fonction de recherche en temps réel
+- Gestion des fichiers permanents et temporaires
+- Navigation intuitive dans l'arborescence
+- Affichage du statut en temps réel
+- Configuration du port personnalisable
+- Interface TUI (Terminal User Interface) pour la gestion
+ 
+L'outil est particulièrement utile pour partager rapidement des fichiers sur un réseau local
+de manière organisée et sécurisée, avec une interface utilisateur moderne et facile à utiliser."""
+
 
 ########################################################
 ###################### IMPORTS ########################

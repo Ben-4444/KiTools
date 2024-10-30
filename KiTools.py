@@ -10,6 +10,7 @@ import random
 import subprocess
 import signal
 import time
+import getpass
 
 # Initialiser colorama
 init()
@@ -129,7 +130,7 @@ class KiToolsShell(cmd.Cmd):
     kitools_color = Fore.LIGHTRED_EX 
     trait_color = Fore.LIGHTYELLOW_EX
     fleche_color = Fore.GREEN
-    prompt = f"{trait_color}╭──({user_color}{os.getlogin()}{kitools_color}👽KiTools{trait_color})\n╰─{fleche_color}➤{Style.RESET_ALL} "
+    prompt = f"{trait_color}╭──({user_color}{getpass.getuser()}{kitools_color}👽KiTools{trait_color})\n╰─{fleche_color}➤{Style.RESET_ALL} "
     
     def __init__(self):
         super().__init__()
@@ -157,7 +158,7 @@ class KiToolsShell(cmd.Cmd):
         os.system('clear' if os.name == 'posix' else 'cls')
         print(get_random_ascii_art() + "\n" + get_start())
         self.afficher_menu()
-        if os.getlogin() != "root":
+        if getpass.getuser() != "root":
             print(f"{Fore.RED}[!] Attention, vous n'êtes pas root ! Certaines options peuvent ne pas fonctionner{Style.RESET_ALL}\n")
 
     def completenames(self, text, *ignored):

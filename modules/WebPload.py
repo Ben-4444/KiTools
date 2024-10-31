@@ -418,8 +418,6 @@ def main(stdscr):
                                     f.write(payload['content'])
                                 os.chmod(file_path, 0o777)
                 
-
-                
                 if server_choice == 'php':
                     with open(os.path.dirname(__file__)+'/ploads/index.php', 'w') as f:
                         f.write(index_php)

@@ -25,6 +25,7 @@ Et plus encore.
 Serveur web temporaire pour l'hébergement de payloads prêts à l'emploi :
 - Création automatique d'un serveur PHP ou Python sur le port 80 (adaptable si 80 déjà utilisé)
 - Génération de payloads prêts à l'emploi (webshells, reverse shells, XSS...)
+- Option de génération de payloads msfvenom automatique
 - Enregistrement de payloads personnalisés (persistant dans KiTools ou en cache)
 - Gestion automatique des fichiers temporaires
 - Nettoyage à la fermeture
@@ -81,8 +82,6 @@ Module d'exploitation de vulnérabilité SSRF (Server-Side Request Forgery) perm
 
 ### Améliorations à venir :
 
-#### WebPload
-- pload msfvenom with option
 
 
 ### Modules à venir :

